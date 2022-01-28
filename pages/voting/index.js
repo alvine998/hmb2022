@@ -1,14 +1,19 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import swal from 'sweetalert';
 import styles from '../../styles/Home.module.css'
 
 index.title = "Voting"
 
 function index(props) {
+    const [active, setActive] = useState(false);
 
     const router = useRouter();
+
+    const activation = () => {
+        setActive(true)
+    }
 
     const onChoose = (id) => {
         swal({
@@ -24,7 +29,7 @@ function index(props) {
                     });
                     router.push("/")
                 } else {
-                    null
+                    setActive(false)
                 }
             });
     }
@@ -47,8 +52,8 @@ function index(props) {
                     <div className={styles.boxPemilihan}>
                         <div className='row'>
                             <div className='col-md'>
-                                <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose() }}>
-                                    <div className={styles.boxCalon}>
+                                <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose(), activation() }}>
+                                    <div className={ active == true ? styles.attractive : styles.boxCalon}>
                                         <img src='/user2.png' className={styles.sizing} />
                                         <h2>No Urut 1</h2>
                                         <h2>Aldi & Fahmi</h2>
