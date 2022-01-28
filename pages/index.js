@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import { qcount, vote } from '../assets';
@@ -39,20 +40,29 @@ export default function Home() {
           <h1>Welcome To Evoting HIMABO 2022</h1>
         </div>
         <div className={styles.right2}>
-          <button className='btn btn-outline-danger'>Logout</button>
+          <Link href={"/login"}>
+            <button className='btn btn-outline-danger'>Logout</button>
+          </Link>
         </div>
         <div className={styles.centeringContent}>
-            <div className={styles.boxPemilihan}>
-              <div className='row'>
-                <div className='col-md'>
-                  <button className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /></button>
-                </div>
-                <div className='col-md'>
-                  <button className='btn btn-outline-warning'><Image src={qcount} height={100} width={150} /></button>
-                </div>
+          <div className={styles.boxPemilihan2}>
+            <div className='row'>
+              <div className='col-md'>
+                <Link href={"/voting"}>
+                  <button className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /><br />Pilih</button>
+                </Link>
+              </div>
+              <div className='col-md'>
+                <button className='btn btn-outline-warning'><Image src={qcount} height={100} width={100} /><br />Quick Count</button>
+              </div>
+              <div className='col-md'>
+                <Link href={"/profil-calon"}>
+                  <button className='btn btn-outline-success'><Image src={"/user2.png"} height={100} width={100} /><br />Profil Calon</button>
+                </Link>
               </div>
             </div>
           </div>
+        </div>
       </div>
 
     </div>
