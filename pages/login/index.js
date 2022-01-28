@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import swal from 'sweetalert';
 import { logo } from '../../assets';
 import styles from '../../styles/Home.module.css'
 
@@ -30,8 +31,12 @@ const Login = (props) => {
         if (user == 'admin' && password == '1234') {
             alert("Selamat datang admin")
             sendData(id)
-            router.push('/admin')
-        } else {
+        } 
+        else if(user == 'pemilih' && password == '12345'){
+            swal("Berhasil Login", {icon:"success"})
+            sendData(id)
+        }
+        else {
             alert("Password atau email salah!")
         }
     }
@@ -50,7 +55,7 @@ const Login = (props) => {
                     <input placeholder='Password' value={password} onChange={handlingPass.bind(this)} type={"password"} className='form-control' required />
                 </div>
                 <div style={{ paddingTop: 10 }}>
-                    <Link href={password === '1234' ? "/admin" : "/login"}>
+                    <Link href={(user == 'admin' && password == '1234') ? "/admin" : (user == 'pemilih' && password == '12345') ? "/" : "/login"}>
                         <input onClick={()=>onLogin(user)} value={"Masuk"} type={"submit"} className='btn btn-outline-warning w-100' />
                     </Link>
                 </div>

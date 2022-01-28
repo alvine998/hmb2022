@@ -5,6 +5,10 @@ import { logo } from '../../assets';
 import styles from '../../styles/Home.module.css'
 
 const Sidebar = (props) => {
+
+    const deleteLogin = () => {
+        localStorage.removeItem("loginKey");
+    }
     return (
         <div>
             <div className={'container ' + styles.topper}>
@@ -71,7 +75,7 @@ const Sidebar = (props) => {
                 </Link>
 
                 <Link href={"/login"}>
-                    <div style={{ marginTop: 10 }} className={styles.box1}>
+                    <div onClick={()=>deleteLogin()} style={{ marginTop: 10 }} className={styles.box1}>
                         <div className={styles.textbox1}>
                             <h5>Keluar</h5>
                         </div>
