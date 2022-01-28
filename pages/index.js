@@ -49,11 +49,13 @@ export default function Home() {
             <div className='row'>
               <div className='col-md'>
                 <Link href={"/voting"}>
-                  <button className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /><br />Pilih</button>
+                  <button className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /><br />Voting</button>
                 </Link>
               </div>
               <div className='col-md'>
-                <button className='btn btn-outline-warning'><Image src={qcount} height={100} width={100} /><br />Quick Count</button>
+                <Link href={"/quick-count"}>
+                  <button className='btn btn-outline-warning'><Image src={qcount} height={100} width={100} /><br />Quick Count</button>
+                </Link>
               </div>
               <div className='col-md'>
                 <Link href={"/profil-calon"}>

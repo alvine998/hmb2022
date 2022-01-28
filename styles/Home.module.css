@@ -386,6 +386,11 @@
   height: 250px;
 }
 
+.charts{
+  width: 600px;
+  height: 600px;
+}
+
 .attractive{
   background-color:rgba(255,255,255,.8);
   border-radius:.25em;
