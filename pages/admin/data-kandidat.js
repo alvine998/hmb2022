@@ -105,6 +105,8 @@ function DataKandidat(props) {
             nama: nama,
             foto: 'images_' + image.name,
             keterangan: keterangan,
+            visi: visi,
+            misi: misi
         }
         console.log(data);
 
@@ -112,6 +114,7 @@ function DataKandidat(props) {
             res => {
                 swal("Data berhasil disimpan", { icon: "success" });
                 setNama(""); setImage(null); setKeterangan("");
+                setVisi(""); setMisi("")
                 getDataKandidat();
             }
         )
@@ -156,6 +159,7 @@ function DataKandidat(props) {
                     <td>{res.visi}</td>
                     <td>{res.misi}</td>
                     <td>{res.keterangan}</td>
+                    <td><button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#exampleModalEdit" onClick={() => { getDataKandidatOne(res._id) }}>Edit</button> <button onClick={() => deleteKandidat(res._id)} className='btn btn-danger'>Hapus</button></td>
                 </tr>
             ))
         )
@@ -287,6 +291,7 @@ function DataKandidat(props) {
                                                 <td>{res.visi}</td>
                                                 <td>{res.misi}</td>
                                                 <td>{res.keterangan}</td>
+                                                <td className='d-grid gap-2'><button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#exampleModalEdit" onClick={() => { getDataKandidatOne(res._id) }}>Edit</button> <button onClick={() => deleteKandidat(res._id)} className='btn btn-danger'>Hapus</button></td>
                                             </tr>
                                         )) : renderSearch()
                                 }
