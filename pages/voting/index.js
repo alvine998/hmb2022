@@ -1,6 +1,7 @@
+import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import styles from '../../styles/Home.module.css'
 
@@ -8,6 +9,8 @@ index.title = "Voting"
 
 function index(props) {
     const [active, setActive] = useState(false);
+    const [collection, setCollection] = useState([]);
+    const [ids, setIds] = useState('');
 
     const router = useRouter();
 
@@ -15,7 +18,47 @@ function index(props) {
         setActive(true)
     }
 
+    const getData = () => {
+        axios.get(`http://localhost:4000/kandidats`).then(
+            res => {
+                const collection = res.data;
+                console.log(collection);
+                setCollection(collection);
+            }
+        )
+    }
+
+    const getDataUsers = () => {
+        var key = localStorage.getItem("loginKey");
+        axios.get(`http://localhost:4000/users/usr/${key}`).then(
+            res => {
+                const result = res.data;
+                setIds(result._id);
+                console.log(result)
+            }
+        )
+    }
+
+    const updateStatus = () => {
+        const data = {
+            status_user: 0,
+            keterangan: 'sudah memilih'
+        }
+
+        axios.put(`http://localhost:4000/users/${ids}`, data).then(
+            res => {
+                console.log(res.data, "Berhasil update status")
+            }
+        )
+    }
+
     const onChoose = (id) => {
+        const data = {
+            id_user: ids,
+            id_kandidat: id,
+            keterangan: 'selesai' 
+        }
+
         swal({
             title: "Apakah kamu sudah yakin?",
             icon: "warning",
@@ -24,15 +67,26 @@ function index(props) {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    swal("Terima kasih sudah memilih", {
-                        icon: "success",
-                    });
-                    router.push("/")
+                    axios.post(`http://localhost:4000/votes`, data).then(
+                        res => {
+                            console.log(res.data);
+                            swal("Terima kasih sudah memilih", {
+                                icon: "success",
+                            });
+                            router.push("/");
+                            updateStatus();
+                        }
+                    )
                 } else {
                     setActive(false)
                 }
             });
     }
+
+    useEffect(()=>{
+        getData();
+        getDataUsers();
+    },[])
     return (
         <div>
             <div className={styles.container}>
@@ -51,33 +105,19 @@ function index(props) {
                 <div className={styles.centeringContent}>
                     <div className={styles.boxPemilihan}>
                         <div className='row'>
-                            <div className='col-md'>
-                                <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose(), activation() }}>
-                                    <div className={ active == true ? styles.attractive : styles.boxCalon}>
-                                        <img src='/user2.png' className={styles.sizing} />
-                                        <h2>No Urut 1</h2>
-                                        <h2>Aldi & Fahmi</h2>
+                            {
+                                collection.map((res, i) => (
+                                    <div key={i} className='col-md'>
+                                        <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose(res._id), activation() }}>
+                                            <div className={styles.boxCalon}>
+                                                <img src='/user2.png' className={styles.sizing} />
+                                                <h2>No Urut {i+1}</h2>
+                                                <h2>{res.nama}</h2>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                            <div className='col-md'>
-                                <a style={{ textDecoration: 'none', color: "black" }} href='#'>
-                                    <div className={styles.boxCalon}>
-                                        <img src='/user2.png' className={styles.sizing} />
-                                        <h2>No Urut 1</h2>
-                                        <h2>Aldi & Fahmi</h2>
-                                    </div>
-                                </a>
-                            </div>
-                            <div className='col-md'>
-                                <a style={{ textDecoration: 'none', color: "black" }} href='#'>
-                                    <div className={styles.boxCalon}>
-                                        <img src='/user2.png' className={styles.sizing} />
-                                        <h2>No Urut 1</h2>
-                                        <h2>Aldi & Fahmi</h2>
-                                    </div>
-                                </a>
-                            </div>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,42 @@
+import axios from 'axios';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Home.module.css'
 
 index.title = "Profil Calon"
 
 function index(props) {
+    // State
+    const [collect, setCollect] = useState([]);
+    const [visi, setVisi] = useState([]);
+    const [misi, setMisi] = useState([]);
+    const [foto, setFoto] = useState([]);
+
+    // Function
+    const getData = () => {
+        axios.get(`http://localhost:4000/kandidats`).then(
+            res => {
+                const collect = res.data;
+                console.log(collect);
+                setCollect(collect);
+            }
+        )
+    }
+
+    const getDataOne = (id) => {
+        axios.get(`http://localhost:4000/kandidats/${id}`).then(
+            res => {
+                console.log(res.data);
+                const result = res.data;
+                setVisi(result.visi); setMisi(result.misi);
+                setFoto(result.foto);
+            }
+        )
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
     return (
         <div>
             <div className={styles.container}>
@@ -29,17 +61,17 @@ function index(props) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <img src='/user2.png' className="w-100 h-100" />
+                                <img src={`http://localhost:4000/resources/uploads/${foto}`} className="w-100 h-100" />
                                 <div>
                                     <h5>Visi :</h5>
                                     <p>
-                                        LoremIpsum dansdo wjehow jsnbadiu wjikeqhon  oajksehdo9qw iashdoasd
+                                        {visi}
                                     </p>
                                 </div>
                                 <div>
                                     <h5>Misi :</h5>
                                     <p>
-                                        LoremIpsum dansdo wjehow jsnbadiu wjikeqhon  oajksehdo9qw iashdoasd
+                                        {misi}
                                     </p>
                                 </div>
                             </div>
@@ -53,33 +85,19 @@ function index(props) {
                 <div className={styles.centeringContent}>
                     <div className={styles.boxPemilihan}>
                         <div className='row'>
-                            <div className='col-md'>
-                                <a data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ textDecoration: 'none', color: "black" }} href='#'>
-                                    <div className={styles.boxCalon}>
-                                        <img src='/user2.png' className={styles.sizing} />
-                                        <h2>No Urut 1</h2>
-                                        <h2>Aldi & Fahmi</h2>
+                            {
+                                collect.map((res, i) => (
+                                    <div className='col-md'>
+                                        <a data-bs-toggle="modal" onClick={()=>getDataOne(res._id)} data-bs-target="#exampleModal" style={{ textDecoration: 'none', color: "black" }} href='#'>
+                                            <div className={styles.boxCalon}>
+                                                <img src='/user2.png' className={styles.sizing} />
+                                                <h2>No Urut {i+1}</h2>
+                                                <h2>{res.nama}</h2>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                            <div className='col-md'>
-                                <a style={{ textDecoration: 'none', color: "black" }} href='#'>
-                                    <div className={styles.boxCalon}>
-                                        <img src='/user2.png' className={styles.sizing} />
-                                        <h2>No Urut 1</h2>
-                                        <h2>Aldi & Fahmi</h2>
-                                    </div>
-                                </a>
-                            </div>
-                            <div className='col-md'>
-                                <a style={{ textDecoration: 'none', color: "black" }} href='#'>
-                                    <div className={styles.boxCalon}>
-                                        <img src='/user2.png' className={styles.sizing} />
-                                        <h2>No Urut 1</h2>
-                                        <h2>Aldi & Fahmi</h2>
-                                    </div>
-                                </a>
-                            </div>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>

@@ -50,13 +50,13 @@ const Sidebar = (props) => {
                     </div>
                 </Link>
 
-                <Link href={"/admin/data-admin"}>
+                {/* <Link href={"/admin/data-admin"}>
                     <div style={{ marginTop: 10 }} className={props.admin ? styles.setactive : styles.box1}>
                         <div className={styles.textbox1}>
                             <h5>Data Admin</h5>
                         </div>
                     </div>
-                </Link>
+                </Link> */}
 
                 <Link href={"/admin/kotak-suara"}>
                     <div style={{ marginTop: 10 }} className={props.kotak ? styles.setactive : styles.box1}>

@@ -1,14 +1,16 @@
+import axios from 'axios';
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { qcount, vote } from '../assets';
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
   // Declaration
   const router = useRouter();
+  const [stats, setStats] = useState('');
   // function
   const getLogin = () => {
     var key = localStorage.getItem("loginKey");
@@ -19,6 +21,18 @@ export default function Home() {
     } else if (key == 'admin') {
       router.push("/admin/")
     }
+
+    axios.get(`http://localhost:4000/users/usr/${key}`).then(
+      res => {
+        console.log(res.data);
+        const result = res.data;
+        setStats(result.status_user);
+      }
+    )
+  }
+
+  const deleteSession = () => {
+    localStorage.removeItem("loginKey");
   }
 
   useEffect(() => {
@@ -41,7 +55,7 @@ export default function Home() {
         </div>
         <div className={styles.right2}>
           <Link href={"/login"}>
-            <button className='btn btn-outline-danger'>Logout</button>
+            <button onClick={()=>deleteSession()} className='btn btn-outline-danger'>Logout</button>
           </Link>
         </div>
         <div className={styles.centeringContent}>
@@ -49,7 +63,7 @@ export default function Home() {
             <div className='row'>
               <div className='col-md'>
                 <Link href={"/voting"}>
-                  <button className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /><br />Voting</button>
+                  <button disabled={stats == 1 ? false : true} className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /><br />Voting</button>
                 </Link>
               </div>
               <div className='col-md'>

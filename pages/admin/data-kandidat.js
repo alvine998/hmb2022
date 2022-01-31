@@ -68,7 +68,8 @@ function DataKandidat(props) {
                 const collection2 = res.data;
                 console.log(collection2);
                 setNama(collection2.nama); setImage(collection2.foto);
-                setKeterangan(collection2.keterangan)
+                setKeterangan(collection2.keterangan); setVisi(collection2.visi);
+                setMisi(collection2.misi);
             }
         )
     }

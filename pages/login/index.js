@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -28,22 +29,32 @@ const Login = (props) => {
     }
 
     const onLogin = (id) => {
-        if (user == 'admin' && password == '1234') {
-            alert("Selamat datang admin")
-            sendData(id)
-        } 
-        else if(user == 'pemilih' && password == '12345'){
-            swal("Berhasil Login", {icon:"success"})
-            sendData(id)
+        const data = {
+            username: user,
+            password: password
         }
-        else {
-            alert("Password atau email salah!")
-        }
+        console.log(data)
+        axios.post(`http://localhost:4000/users/login`, data).then(
+            res => {
+                swal("Berhasil Login", { icon: "success" })
+                sendData(id);
+                router.push("/")
+            }
+        ) .catch(err => {
+            if (user == 'admin' && password == '1234') {
+                alert("Selamat datang admin")
+                sendData(id)
+                router.push("/admin")
+            } else {
+                console.log(err)
+                alert("Password atau email salah!")
+            }
+        })
     }
-    
+
     return (
         <div>
-            <form className={styles.inputPosition}>
+            <div className={styles.inputPosition}>
                 <div className={styles.sizeLogo}>
                     <Image src={logo} height={250} width={300} />
                 </div>
@@ -55,11 +66,9 @@ const Login = (props) => {
                     <input placeholder='Password' value={password} onChange={handlingPass.bind(this)} type={"password"} className='form-control' required />
                 </div>
                 <div style={{ paddingTop: 10 }}>
-                    <Link href={(user == 'admin' && password == '1234') ? "/admin" : (user == 'pemilih' && password == '12345') ? "/" : "/login"}>
-                        <input onClick={()=>onLogin(user)} value={"Masuk"} type={"submit"} className='btn btn-outline-warning w-100' />
-                    </Link>
+                    <button onClick={() => onLogin(user)} className='btn btn-outline-warning w-100' >Masuk</button>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };
