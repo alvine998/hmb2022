@@ -1,17 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import styles from '../../styles/Home.module.css'
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 QuickCount.title = "Kotak-Suara";
 
 function QuickCount(props) {
+
+    const [collect, setCollect] = useState([]);
+
+    const router = useRouter();
     const getData = () => {
         var key = localStorage.getItem("loginKey")
         console.log(key);
+
+        if (key == null) {
+            router.push("/login")
+        } else if (key !== 'admin') {
+            router.push("/login")
+        }
+    }
+
+    const getDataSuara = () => {
+        axios.get(`http://localhost:4000/kandidats`).then(
+            res => {
+                const collect = res.data;
+                console.log(collect);
+                setCollect(collect);
+            }
+        )
     }
 
     useEffect(() => {
         getData();
+        getDataSuara();
     }, [])
     return (
         <div style={{ overflow: 'hidden' }}>
@@ -31,12 +54,16 @@ function QuickCount(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
+                                {
+                                    collect.map((res, i) => (
+                                        <tr key={i}>
+                                            <th scope="row">{i+1}</th>
+                                            <td>{res.nama}</td>
+                                            <td><img src={`http://localhost:4000/resources/uploads/${res.foto}`} className='w-100 h-100' /></td>
+                                            <td>{res.jumlah_suara}</td>
+                                        </tr>
+                                    ))
+                                }
                             </tbody>
                         </table>
                     </div>

@@ -52,7 +52,20 @@ function index(props) {
         )
     }
 
-    const onChoose = (id) => {
+    const updateSuara = (id, js) => {
+        const hasil = js + 1;
+        const data = {
+            jumlah_suara: hasil
+        }
+        console.log(data)
+        axios.put(`http://localhost:4000/kandidats/${id}`, data).then(
+            res => {
+                console.log("Suara Masuk", res.data);
+            }
+        )
+    }
+
+    const onChoose = (id, js) => {
         const data = {
             id_user: ids,
             id_kandidat: id,
@@ -74,6 +87,7 @@ function index(props) {
                                 icon: "success",
                             });
                             router.push("/");
+                            updateSuara(id, js);
                             updateStatus();
                         }
                     )
@@ -108,9 +122,9 @@ function index(props) {
                             {
                                 collection.map((res, i) => (
                                     <div key={i} className='col-md'>
-                                        <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose(res._id), activation() }}>
+                                        <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose(res._id, res.jumlah_suara), activation() }}>
                                             <div className={styles.boxCalon}>
-                                                <img src='/user2.png' className={styles.sizing} />
+                                                <img src={`http://localhost:4000/resources/uploads/${res.foto}`} className={styles.sizing} />
                                                 <h2>No Urut {i+1}</h2>
                                                 <h2>{res.nama}</h2>
                                             </div>

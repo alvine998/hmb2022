@@ -90,7 +90,7 @@ function index(props) {
                                     <div className='col-md'>
                                         <a data-bs-toggle="modal" onClick={()=>getDataOne(res._id)} data-bs-target="#exampleModal" style={{ textDecoration: 'none', color: "black" }} href='#'>
                                             <div className={styles.boxCalon}>
-                                                <img src='/user2.png' className={styles.sizing} />
+                                                <img src={`http://localhost:4000/resources/uploads/${res.foto}`} className={styles.sizing} />
                                                 <h2>No Urut {i+1}</h2>
                                                 <h2>{res.nama}</h2>
                                             </div>
