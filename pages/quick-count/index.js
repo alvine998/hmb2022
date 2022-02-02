@@ -67,7 +67,7 @@ function index(props) {
     const [jumlah, setJumlah] = useState([]);
 
     const getData = () => {
-        axios.get(`http://localhost:4000/kandidats`).then(
+        axios.get(`http://evotinghmb.herokuapp.com/kandidats`).then(
             res => {
                 const collect = res.data;
                 console.log(collect);

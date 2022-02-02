@@ -10,6 +10,7 @@ function KotakSuara(props) {
     const [collection, setCollection] = useState([]);
     const [namak, setNamak] = useState('');
     const [ids, setIds] = useState('');
+    const [username, setUsername] = useState('');
 
     const router = useRouter();
     const getData = () => {
@@ -24,21 +25,11 @@ function KotakSuara(props) {
     }
 
     const getDataVote = () => {
-        axios.get(`http://localhost:4000/votes`).then(
+        axios.get(`http://evotinghmb.herokuapp.com/votes`).then(
             res => {
                 const collection = res.data;
                 console.log(collection);
                 setCollection(collection.reverse());
-            }
-        )
-    }
-
-    const getDataKandidat = (id) => {
-        axios.get(`http://localhost:4000/kandidats/${id}`).then(
-            res => {
-                const collection = res.data;
-                console.log(collection);
-                setNamak(collection.nama); setIds(collection._id);
             }
         )
     }
@@ -76,10 +67,10 @@ function KotakSuara(props) {
                                 {
                                     collection.map((res, i) => (
                                         <tr key={i}>
-                                            <th scope="row">{i+1}</th>
-                                            <td>{res.id_kandidat.substr(0,8)}</td>
-                                            <td>{res.id_user.substr(0,8)}</td>
-                                            <td>{res.createdAt.substr(0,19)}</td>
+                                            <th scope="row">{i + 1}</th>
+                                            <td>{res.id_kandidat}</td>
+                                            <td>{res.id_user}</td>
+                                            <td>{res.createdAt.substr(0, 19)}</td>
                                         </tr>
                                     ))
                                 }

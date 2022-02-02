@@ -34,7 +34,7 @@ const Login = (props) => {
             password: password
         }
         console.log(data)
-        axios.post(`http://localhost:4000/users/login`, data).then(
+        axios.post(`http://evotinghmb.herokuapp.com/users/login`, data).then(
             res => {
                 swal("Berhasil Login", { icon: "success" })
                 sendData(id);

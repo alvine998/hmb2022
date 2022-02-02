@@ -14,7 +14,7 @@ function index(props) {
 
     // Function
     const getData = () => {
-        axios.get(`http://localhost:4000/kandidats`).then(
+        axios.get(`http://evotinghmb.herokuapp.com/kandidats`).then(
             res => {
                 const collect = res.data;
                 console.log(collect);
@@ -24,7 +24,7 @@ function index(props) {
     }
 
     const getDataOne = (id) => {
-        axios.get(`http://localhost:4000/kandidats/${id}`).then(
+        axios.get(`http://evotinghmb.herokuapp.com/kandidats/${id}`).then(
             res => {
                 console.log(res.data);
                 const result = res.data;
@@ -61,7 +61,7 @@ function index(props) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <img src={`http://localhost:4000/resources/uploads/${foto}`} className="w-100 h-100" />
+                                <img src={`http://evotinghmb.herokuapp.com/resources/uploads/${foto}`} className="w-100 h-100" />
                                 <div>
                                     <h5>Visi :</h5>
                                     <p>
@@ -90,7 +90,7 @@ function index(props) {
                                     <div className='col-md'>
                                         <a data-bs-toggle="modal" onClick={()=>getDataOne(res._id)} data-bs-target="#exampleModal" style={{ textDecoration: 'none', color: "black" }} href='#'>
                                             <div className={styles.boxCalon}>
-                                                <img src={`http://localhost:4000/resources/uploads/${res.foto}`} className={styles.sizing} />
+                                                <img src={`http://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} className={styles.sizing} />
                                                 <h2>No Urut {i+1}</h2>
                                                 <h2>{res.nama}</h2>
                                             </div>

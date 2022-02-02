@@ -11,6 +11,7 @@ function index(props) {
     const [active, setActive] = useState(false);
     const [collection, setCollection] = useState([]);
     const [ids, setIds] = useState('');
+    const [username, setUsername] = useState('');
 
     const router = useRouter();
 
@@ -19,7 +20,7 @@ function index(props) {
     }
 
     const getData = () => {
-        axios.get(`http://localhost:4000/kandidats`).then(
+        axios.get(`http://evotinghmb.herokuapp.com/kandidats`).then(
             res => {
                 const collection = res.data;
                 console.log(collection);
@@ -30,10 +31,11 @@ function index(props) {
 
     const getDataUsers = () => {
         var key = localStorage.getItem("loginKey");
-        axios.get(`http://localhost:4000/users/usr/${key}`).then(
+        axios.get(`http://evotinghmb.herokuapp.com/users/usr/${key}`).then(
             res => {
                 const result = res.data;
                 setIds(result._id);
+                setUsername(result.username);
                 console.log(result)
             }
         )
@@ -45,7 +47,7 @@ function index(props) {
             keterangan: 'sudah memilih'
         }
 
-        axios.put(`http://localhost:4000/users/${ids}`, data).then(
+        axios.put(`http://evotinghmb.herokuapp.com/users/${ids}`, data).then(
             res => {
                 console.log(res.data, "Berhasil update status")
             }
@@ -58,17 +60,17 @@ function index(props) {
             jumlah_suara: hasil
         }
         console.log(data)
-        axios.put(`http://localhost:4000/kandidats/${id}`, data).then(
+        axios.put(`http://evotinghmb.herokuapp.com/kandidats/${id}`, data).then(
             res => {
                 console.log("Suara Masuk", res.data);
             }
         )
     }
 
-    const onChoose = (id, js) => {
+    const onChoose = (id, js, nama) => {
         const data = {
-            id_user: ids,
-            id_kandidat: id,
+            id_user: username,
+            id_kandidat: nama,
             keterangan: 'selesai' 
         }
 
@@ -80,7 +82,7 @@ function index(props) {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    axios.post(`http://localhost:4000/votes`, data).then(
+                    axios.post(`http://evotinghmb.herokuapp.com/votes`, data).then(
                         res => {
                             console.log(res.data);
                             swal("Terima kasih sudah memilih", {
@@ -122,9 +124,9 @@ function index(props) {
                             {
                                 collection.map((res, i) => (
                                     <div key={i} className='col-md'>
-                                        <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose(res._id, res.jumlah_suara), activation() }}>
+                                        <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose(res._id, res.jumlah_suara, res.nama), activation() }}>
                                             <div className={styles.boxCalon}>
-                                                <img src={`http://localhost:4000/resources/uploads/${res.foto}`} className={styles.sizing} />
+                                                <img src={`http://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} className={styles.sizing} />
                                                 <h2>No Urut {i+1}</h2>
                                                 <h2>{res.nama}</h2>
                                             </div>

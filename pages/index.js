@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import { qcount, vote } from '../assets';
 import styles from '../styles/Home.module.css'
+import useMediaQuery from './components/useMediaQuery';
 
 export default function Home() {
   // Declaration
@@ -19,10 +20,10 @@ export default function Home() {
     if (key === null) {
       router.push("/login")
     } else if (key == 'admin') {
-      router.push("/admin/")
+      router.push("/admin")
     }
 
-    axios.get(`http://localhost:4000/users/usr/${key}`).then(
+    axios.get(`http://evotinghmb.herokuapp.com/users/usr/${key}`).then(
       res => {
         console.log(res.data);
         const result = res.data;
@@ -34,6 +35,8 @@ export default function Home() {
   const deleteSession = () => {
     localStorage.removeItem("loginKey");
   }
+
+  const isBreakpoint = useMediaQuery(768);
 
   useEffect(() => {
     getLogin();
@@ -47,36 +50,62 @@ export default function Home() {
       </Head>
 
       <div>
+        <div className={styles.right2}>
+          <Link href={"/login"}>
+            <button onClick={() => deleteSession()} className='btn btn-outline-danger'>Logout</button>
+          </Link>
+        </div>
         <div className={styles.bg}></div>
         <div className={styles.bg + styles.bg2}></div>
         <div className={styles.bg + styles.bg3}></div>
-        <div className={styles.content} >
+        <div className={styles.content2} >
           <h1>Welcome To Evoting HIMABO 2022</h1>
         </div>
-        <div className={styles.right2}>
-          <Link href={"/login"}>
-            <button onClick={()=>deleteSession()} className='btn btn-outline-danger'>Logout</button>
-          </Link>
-        </div>
         <div className={styles.centeringContent}>
-          <div className={styles.boxPemilihan2}>
-            <div className='row'>
-              <div className='col-md'>
-                <Link href={"/voting"}>
-                  <button disabled={stats == 1 ? false : true} className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /><br />Voting</button>
-                </Link>
-              </div>
-              <div className='col-md'>
-                <Link href={"/quick-count"}>
-                  <button className='btn btn-outline-warning'><Image src={qcount} height={100} width={100} /><br />Quick Count</button>
-                </Link>
-              </div>
-              <div className='col-md'>
-                <Link href={"/profil-calon"}>
-                  <button className='btn btn-outline-success'><Image src={"/user2.png"} height={100} width={100} /><br />Profil Calon</button>
-                </Link>
-              </div>
-            </div>
+          <div className={styles.boxPemilihan}>
+            {
+              isBreakpoint ? (
+                <center>
+                  <div className='row'>
+                    <div className='col-md' >
+                      <Link href={"/voting"}>
+                        <button disabled={stats == 1 ? false : true} className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /><br />Voting</button>
+                      </Link>
+                    </div>
+                    <div className='col-md' style={{paddingTop:10}}>
+                      <Link href={"/quick-count"}>
+                        <button className='btn btn-outline-secondary'><Image src={qcount} height={100} width={100} /><br />Quick Count</button>
+                      </Link>
+                    </div>
+                    <div className='col-md' style={{paddingTop:10}}>
+                      <Link href={"/profil-calon"}>
+                        <button className='btn btn-outline-success'><Image src={"/user2.png"} height={100} width={100} /><br />Profil Calon</button>
+                      </Link>
+                    </div>
+                  </div>
+                </center>
+
+              ) : (
+                <div className='row'>
+                  <div className='col-md'>
+                    <Link href={"/voting"}>
+                      <button disabled={stats == 1 ? false : true} className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /><br />Voting</button>
+                    </Link>
+                  </div>
+                  <div className='col-md'>
+                    <Link href={"/quick-count"}>
+                      <button className='btn btn-outline-warning'><Image src={qcount} height={100} width={100} /><br />Quick Count</button>
+                    </Link>
+                  </div>
+                  <div className='col-md'>
+                    <Link href={"/profil-calon"}>
+                      <button className='btn btn-outline-success'><Image src={"/user2.png"} height={100} width={100} /><br />Profil Calon</button>
+                    </Link>
+                  </div>
+                </div>
+              )
+            }
+
           </div>
         </div>
       </div>
