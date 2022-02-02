@@ -59,7 +59,7 @@ function QuickCount(props) {
                                         <tr key={i}>
                                             <th scope="row">{i+1}</th>
                                             <td>{res.nama}</td>
-                                            <td><img src={`https://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} width={250}  height={300} /></td>
+                                            <td><img src={`https://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} width={200}  height={200} /></td>
                                             <td>{res.jumlah_suara}</td>
                                         </tr>
                                     ))
