@@ -53,7 +53,7 @@ function DataKandidat(props) {
     const router = useRouter();
 
     const getDataKandidat = () => {
-        axios.get(`http://evotinghmb.herokuapp.com/kandidats`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/kandidats`).then(
             res => {
                 const collection = res.data;
                 console.log(collection);
@@ -63,7 +63,7 @@ function DataKandidat(props) {
     }
 
     const getDataKandidatOne = (id) => {
-        axios.get(`http://evotinghmb.herokuapp.com/kandidats/${id}`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/kandidats/${id}`).then(
             res => {
                 const collection2 = res.data;
                 console.log(collection2);
@@ -84,7 +84,7 @@ function DataKandidat(props) {
         }
         console.log(data);
 
-        axios.put(`http://evotinghmb.herokuapp.com/kandidats/${id}`, data).then(
+        axios.put(`https://evotinghmb.herokuapp.com/kandidats/${id}`, data).then(
             res => {
                 swal("Data berhasil diubah", { icon: "success" });
                 getDataKandidat();
@@ -93,7 +93,7 @@ function DataKandidat(props) {
     }
 
     const deleteKandidat = (id) => {
-        axios.delete(`http://evotinghmb.herokuapp.com/kandidats/${id}`).then(
+        axios.delete(`https://evotinghmb.herokuapp.com/kandidats/${id}`).then(
             res => {
                 swal("Data berhasil dihapus", { icon: "success" });
                 getDataKandidat();
@@ -111,7 +111,7 @@ function DataKandidat(props) {
         }
         console.log(data);
 
-        axios.post(`http://evotinghmb.herokuapp.com/kandidats`, data).then(
+        axios.post(`https://evotinghmb.herokuapp.com/kandidats`, data).then(
             res => {
                 swal("Data berhasil disimpan", { icon: "success" });
                 setNama(""); setImage(null); setKeterangan("");
@@ -125,7 +125,7 @@ function DataKandidat(props) {
         let formdata = new FormData();
         formdata.append("images", image);
 
-        axios.post(`http://evotinghmb.herokuapp.com/upload`, formdata).then(
+        axios.post(`https://evotinghmb.herokuapp.com/upload`, formdata).then(
             res => {
                 console.log(res.data);
             }
@@ -133,7 +133,7 @@ function DataKandidat(props) {
     }
 
     const deleteFoto = (foto) => {
-        axios.delete(`http://evotinghmb.herokuapp.com/delete/${foto}`).then(
+        axios.delete(`https://evotinghmb.herokuapp.com/delete/${foto}`).then(
             res => {
                 console.log("Delete image : ", res.data);
             }
@@ -141,7 +141,7 @@ function DataKandidat(props) {
     }
 
     const searchUsername = (nama) => {
-        axios.get(`http://evotinghmb.herokuapp.com/search?nama=${nama}`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/search?nama=${nama}`).then(
             res => {
                 const collect = res.data;
                 console.log(collect);
@@ -156,7 +156,7 @@ function DataKandidat(props) {
                 <tr key={i}>
                     <th scope="row">{i + 1}</th>
                     <td>{res.nama}</td>
-                    <td>{<img src={`http://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} className='w-100 h-100' />}</td>
+                    <td>{<img src={`https://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} className='w-100 h-100' />}</td>
                     <td>{res.visi}</td>
                     <td>{res.misi}</td>
                     <td>{res.keterangan}</td>
@@ -288,7 +288,7 @@ function DataKandidat(props) {
                                             <tr key={i}>
                                                 <th scope="row">{i + 1}</th>
                                                 <td>{res.nama}</td>
-                                                <td>{<img src={`http://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} className='w-100 h-100' />}</td>
+                                                <td>{<img src={`https://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} className='w-100 h-100' />}</td>
                                                 <td>{res.visi}</td>
                                                 <td>{res.misi}</td>
                                                 <td>{res.keterangan}</td>
