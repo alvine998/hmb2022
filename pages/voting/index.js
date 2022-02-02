@@ -19,6 +19,17 @@ function index(props) {
         setActive(true)
     }
 
+    const getLogin = () => {
+        var key = localStorage.getItem("loginKey");
+        console.log(key)
+
+        if (key === null) {
+            router.push("/login")
+        } else if (key == 'admin') {
+            router.push("/admin")
+        }
+    }
+
     const getData = () => {
         axios.get(`https://evotinghmb.herokuapp.com/kandidats`).then(
             res => {
@@ -71,7 +82,7 @@ function index(props) {
         const data = {
             id_user: username,
             id_kandidat: nama,
-            keterangan: 'selesai' 
+            keterangan: 'selesai'
         }
 
         swal({
@@ -99,10 +110,11 @@ function index(props) {
             });
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getData();
         getDataUsers();
-    },[])
+        getLogin();
+    }, [])
     return (
         <div>
             <div className={styles.container}>
@@ -127,7 +139,7 @@ function index(props) {
                                         <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose(res._id, res.jumlah_suara, res.nama), activation() }}>
                                             <div className={styles.boxCalon}>
                                                 <img src={`https://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} className={styles.sizing} />
-                                                <h2>No Urut {i+1}</h2>
+                                                <h2>No Urut {i + 1}</h2>
                                                 <h2>{res.nama}</h2>
                                             </div>
                                         </a>

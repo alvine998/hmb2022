@@ -79,8 +79,20 @@ function index(props) {
         )
     }
 
+    const getLogin = () => {
+        var key = localStorage.getItem("loginKey");
+        console.log(key)
+
+        if (key === null) {
+            router.push("/login")
+        } else if (key == 'admin') {
+            router.push("/admin")
+        }
+    }
+
     useEffect(() => {
         getData();
+        getLogin();
     }, [])
 
     const data = {
