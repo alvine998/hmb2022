@@ -31,7 +31,7 @@ import {
     SubTitle,
 } from 'chart.js';
 import axios from 'axios';
-import { Bar } from 'react-chartjs-2';
+import { Bubble, Doughnut, Line, Pie, PolarArea, Scatter } from 'react-chartjs-2';
 
 Chart.register(
     ArcElement,
@@ -73,8 +73,14 @@ function index(props) {
                 console.log(collect);
                 setCollect(collect);
                 setNama(collect.map(res => res.nama))
-                setJumlah(collect.map(res => res.jumlah_suara))
-                console.log(nama, jumlah)
+                // setJumlah(collect.map(res => res.jumlah_suara))
+                console.log(jumlah);
+                setJumlah(collect.map(res=>{
+                    let percent = (res.jumlah_suara / 100) * 168;
+                    console.log(percent + '%');
+                    return percent;
+                }))
+
             }
         )
     }
@@ -136,10 +142,10 @@ function index(props) {
 
                 <div className={styles.centeringContent}>
                     <div className={styles.boxPemilihan}>
-                        <Bar
+                        <Doughnut   
                             data={data}
                             width={400}
-                            height={200}
+                            height={400}
                             options={{
                                 maintainAspectRatio: false
                             }}
