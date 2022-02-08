@@ -31,7 +31,7 @@ function index(props) {
     }
 
     const getData = () => {
-        axios.get(`https://evotinghmb.herokuapp.com/kandidats`).then(
+        axios.get(`http://apievotinghmb.tutorialbyalvine.com/kandidats`).then(
             res => {
                 const collection = res.data;
                 console.log(collection);
@@ -42,7 +42,7 @@ function index(props) {
 
     const getDataUsers = () => {
         var key = localStorage.getItem("loginKey");
-        axios.get(`https://evotinghmb.herokuapp.com/users/usr/${key}`).then(
+        axios.get(`http://apievotinghmb.tutorialbyalvine.com/users/usr/${key}`).then(
             res => {
                 const result = res.data;
                 setIds(result._id);
@@ -58,7 +58,7 @@ function index(props) {
             keterangan: 'sudah memilih'
         }
 
-        axios.put(`https://evotinghmb.herokuapp.com/users/${ids}`, data).then(
+        axios.put(`http://apievotinghmb.tutorialbyalvine.com/users/${ids}`, data).then(
             res => {
                 console.log(res.data, "Berhasil update status")
             }
@@ -71,7 +71,7 @@ function index(props) {
             jumlah_suara: hasil
         }
         console.log(data)
-        axios.put(`https://evotinghmb.herokuapp.com/kandidats/${id}`, data).then(
+        axios.put(`http://apievotinghmb.tutorialbyalvine.com/kandidats/${id}`, data).then(
             res => {
                 console.log("Suara Masuk", res.data);
             }
@@ -93,7 +93,7 @@ function index(props) {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    axios.post(`https://evotinghmb.herokuapp.com/votes`, data).then(
+                    axios.post(`http://apievotinghmb.tutorialbyalvine.com/votes`, data).then(
                         res => {
                             console.log(res.data);
                             swal("Terima kasih sudah memilih", {
@@ -138,7 +138,7 @@ function index(props) {
                                     <div key={i} className='col-md'>
                                         <a style={{ textDecoration: 'none', color: "black" }} href='#' onClick={() => { onChoose(res._id, res.jumlah_suara, res.nama), activation() }}>
                                             <div className={styles.boxCalon}>
-                                                <img src={`https://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} className={styles.sizing} />
+                                                <img src={`http://apievotinghmb.tutorialbyalvine.com/resources/uploads/${res.foto}`} className={styles.sizing} />
                                                 <h2>No Urut {i + 1}</h2>
                                                 <h2>{res.nama}</h2>
                                             </div>

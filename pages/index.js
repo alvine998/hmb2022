@@ -23,7 +23,7 @@ export default function Home() {
       router.push("/admin")
     }
 
-    axios.get(`https://evotinghmb.herokuapp.com/users/usr/${key}`).then(
+    axios.get(`http://apievotinghmb.tutorialbyalvine.com/users/usr/${key}`).then(
       res => {
         console.log(res.data);
         const result = res.data;

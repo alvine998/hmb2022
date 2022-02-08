@@ -25,7 +25,7 @@ function KotakSuara(props) {
     }
 
     const getDataVote = () => {
-        axios.get(`https://evotinghmb.herokuapp.com/votes`).then(
+        axios.get(`http://apievotinghmb.tutorialbyalvine.com/votes`).then(
             res => {
                 const collection = res.data;
                 console.log(collection);

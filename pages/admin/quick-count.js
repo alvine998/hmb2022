@@ -23,7 +23,7 @@ function QuickCount(props) {
     }
 
     const getDataSuara = () => {
-        axios.get(`https://evotinghmb.herokuapp.com/kandidats`).then(
+        axios.get(`http://apievotinghmb.tutorialbyalvine.com/kandidats`).then(
             res => {
                 const collect = res.data;
                 console.log(collect);
@@ -59,7 +59,7 @@ function QuickCount(props) {
                                         <tr key={i}>
                                             <th scope="row">{i+1}</th>
                                             <td>{res.nama}</td>
-                                            <td><img src={`https://evotinghmb.herokuapp.com/resources/uploads/${res.foto}`} width={200}  height={200} /></td>
+                                            <td><img src={`http://apievotinghmb.tutorialbyalvine.com/resources/uploads/${res.foto}`} width={200}  height={200} /></td>
                                             <td>{res.jumlah_suara}</td>
                                         </tr>
                                     ))
