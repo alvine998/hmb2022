@@ -43,7 +43,7 @@ function DataPemilih(props) {
         }
         console.log(data);
 
-        axios.post(`http://apievotinghmb.tutorialbyalvine.com/users`, data).then(
+        axios.post(`https://evotinghmb.herokuapp.com/users`, data).then(
             res => {
                 swal("Data berhasil disimpan", { icon: "success" });
                 setNama(""); setPassword(""); setUsername("");
@@ -53,7 +53,7 @@ function DataPemilih(props) {
     }
 
     const deletePemilih = (id) => {
-        axios.delete(`http://apievotinghmb.tutorialbyalvine.com/users/${id}`).then(
+        axios.delete(`https://evotinghmb.herokuapp.com/users/${id}`).then(
             res => {
                 swal("Data berhasil dihapus", { icon: "success" });
                 getDataPemilih();
@@ -69,7 +69,7 @@ function DataPemilih(props) {
         }
         console.log(data);
 
-        axios.put(`http://apievotinghmb.tutorialbyalvine.com/users/${id}`, data).then(
+        axios.put(`https://evotinghmb.herokuapp.com/users/${id}`, data).then(
             res => {
                 swal("Data berhasil diubah", { icon: "success" });
                 getDataPemilih();
@@ -78,7 +78,7 @@ function DataPemilih(props) {
     }
 
     const getDataPemilihOne = (id) => {
-        axios.get(`http://apievotinghmb.tutorialbyalvine.com/users/${id}`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/users/${id}`).then(
             res => {
                 const collection2 = res.data;
                 console.log(collection2);
@@ -89,7 +89,7 @@ function DataPemilih(props) {
     }
 
     const getDataPemilih = () => {
-        axios.get(`http://apievotinghmb.tutorialbyalvine.com/users`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/users`).then(
             res => {
                 const collection = res.data;
                 console.log(collection);
@@ -99,7 +99,7 @@ function DataPemilih(props) {
     }
 
     const searchUsername = (username) => {
-        axios.get(`http://apievotinghmb.tutorialbyalvine.com/search?username=${username}`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/search?username=${username}`).then(
             res => {
                 const collect = res.data;
                 console.log(collect);

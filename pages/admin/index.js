@@ -24,7 +24,7 @@ const Admin = (props) => {
     }
 
     const getDatauser = () => {
-        axios.get(`http://apievotinghmb.tutorialbyalvine.com/users`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/users`).then(
             res => {
                 const collect = res.data;
                 setCollect(collect);
@@ -33,7 +33,7 @@ const Admin = (props) => {
     }
 
     const getDataBelumPilih = () => {
-        axios.get(`http://apievotinghmb.tutorialbyalvine.com/users/novotes`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/users/novotes`).then(
             res => {
                 const collect3 = res.data;
                 setCollect3(collect3);
@@ -42,7 +42,7 @@ const Admin = (props) => {
     }
 
     const getDataKandidat = () => {
-        axios.get(`http://apievotinghmb.tutorialbyalvine.com/kandidats`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/kandidats`).then(
             res => {
                 const collect2 = res.data;
                 setCollect2(collect2);
@@ -51,7 +51,7 @@ const Admin = (props) => {
     }
 
     const getDataVoting = () => {
-        axios.get(`http://apievotinghmb.tutorialbyalvine.com/votes`).then(
+        axios.get(`https://evotinghmb.herokuapp.com/votes`).then(
             res => {
                 const collect4 = res.data;
                 setCollect4(collect4);
