@@ -73,11 +73,11 @@ export default function Home() {
                         <button disabled={stats == 1 ? false : true} className='btn btn-outline-primary'><Image src={vote} height={100} width={100} /><br />Voting</button>
                       </Link>
                     </div>
-                    <div className='col-md' style={{paddingTop:10}}>
+                    {/* <div className='col-md' style={{paddingTop:10}}>
                       <Link href={"/quick-count"}>
                         <button className='btn btn-outline-secondary'><Image src={qcount} height={100} width={100} /><br />Quick Count</button>
                       </Link>
-                    </div>
+                    </div> */}
                     <div className='col-md' style={{paddingTop:10}}>
                       <Link href={"/profil-calon"}>
                         <button className='btn btn-outline-success'><Image src={"/user2.png"} height={100} width={100} /><br />Profil Calon</button>
