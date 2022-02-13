@@ -69,7 +69,7 @@ const Sidebar = (props) => {
                 <Link href={"/admin/quick-count"}>
                     <div style={{ marginTop: 10 }} className={props.quick ? styles.setactive : styles.box1}>
                         <div className={styles.textbox1}>
-                            <h5>Quick Count</h5>
+                            <h5>Real Count</h5>
                         </div>
                     </div>
                 </Link>
